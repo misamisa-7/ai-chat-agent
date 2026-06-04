@@ -384,8 +384,8 @@ def _create_default_agents(conn):
             agent_data["character_setting"],
         )
         conn.execute(
-            """INSERT INTO agents (id, user_id, name, personality, speaking_style, character_setting, avatar, system_prompt)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            """INSERT INTO agents (id, user_id, name, personality, speaking_style, character_setting, avatar, system_prompt, enable_search)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)""",
             (
                 agent_data["id"],
                 SYSTEM_USER_ID,
@@ -397,6 +397,7 @@ def _create_default_agents(conn):
                 agent_data["system_prompt"],
             ),
         )
+
 
 
 def _ensure_default_butlers(conn):
@@ -427,11 +428,11 @@ def _ensure_default_butlers(conn):
             b["name"], b["personality"], b["speaking_style"], b["character_setting"]
         )
         conn.execute(
-            """INSERT INTO agents (id, user_id, name, personality, speaking_style, character_setting, avatar, system_prompt)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            """INSERT INTO agents (id, user_id, name, personality, speaking_style, character_setting, avatar, system_prompt, enable_search)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)""",
             (b["id"], SYSTEM_USER_ID, b["name"], b["personality"], b["speaking_style"], b["character_setting"], b["avatar"], system_prompt),
         )
-        logger.info(f"自动创建默认智能体: {b['name']}")
+
     conn.commit()
 
 
